@@ -148,6 +148,15 @@ namespace StarterAssets
 			_armsAnimator.CrossFade(PUNCH, 0f, 0);
         }
 
+		public void Warp(Vector3 newPosition, Vector3? newRotation = null)
+        {
+			
+			_controller.enabled = false;
+			transform.position = newPosition;
+			if (newRotation != null) transform.rotation = Quaternion.LookRotation(newRotation ?? Vector3.zero, Vector3.up);
+			_controller.enabled = true;
+		}
+
         public void Punch()
         {
             Ray hitRay = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
@@ -307,13 +316,13 @@ namespace StarterAssets
 
         private void OnTimeStopped(object sender, EventArgs e)
         {
-            MoveSpeed += TimeStopMoveSpeedOffset;
+			MoveSpeed += TimeStopMoveSpeedOffset;//(TimeStopMoveSpeed - MoveSpeed);
             Gravity /= 2;
         }
 
         private void OnTimeStarted(object sender, EventArgs e)
         {
-            MoveSpeed -= TimeStopMoveSpeedOffset;
+			MoveSpeed -= TimeStopMoveSpeedOffset;//(TimeStopMoveSpeed - MoveSpeed);
             Gravity *= 2;
         }
 	}

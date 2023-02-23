@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StarterAssets;
 
 public class LavaFloor : MonoBehaviour
 {
@@ -8,12 +9,11 @@ public class LavaFloor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided!");
+        //Debug.Log("Collided!");
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collided with player");
-            other.transform.position = respawnLocation.position;
-            other.transform.eulerAngles = Vector3.left;
+            //Debug.Log("Collided with player");
+            other.GetComponent<FirstPersonController>().Warp(respawnLocation.position, -respawnLocation.right);
         }
     }
 }
